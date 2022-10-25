@@ -1,4 +1,4 @@
-#Compute matrices at different features
+###Compute matrices at different features
 #Usage: <input_beds> <input_bw> <out_dir> <out_name>
 
 # TSS
@@ -30,3 +30,8 @@ computeMatrix scale-regions \
     -b 500 -a 500 \
     -bs 5 -p "max" --missingDataAsZero \
     --skipZeros -o $out_file"_genebody_multi.gz"
+    
+    
+ ###PLOT PROFILES:
+ #Usage: <input_matrix> <out_plot.png>
+ plotProfile -m $input_matrix --samplesLabel $sample_name -out $out_plot
