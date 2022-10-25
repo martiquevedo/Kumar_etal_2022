@@ -1,0 +1,32 @@
+#Compute matrices at different features
+#Usage: <input_beds> <input_bw> <out_dir> <out_name>
+
+# TSS
+singularity exec --bind /mnt:/mnt /mnt/picea/projects/singularity/deepTools_v3.5.1.sif /conda/bin/computeMatrix
+computeMatrix reference-point \
+    --referencePoint TSS \
+    -R $input_beds $@ \
+    -S $input_bw \
+    -b 500 -a 1000 \
+    -bs 5 -p "max" --missingDataAsZero \
+    --skipZeros -o $out_file"_TSS_multi.gz"
+
+# TES
+singularity exec --bind /mnt:/mnt /mnt/picea/projects/singularity/deepTools_v3.5.1.sif /conda/bin/computeMatrix
+computeMatrix reference-point \
+    --referencePoint TES \
+    -R $input_beds $@ \
+    -S $input_bw \
+    -b 1000 -a 500 \
+    -bs 5 -p "max" --missingDataAsZero \
+    --skipZeros -o $out_file"_TES_multi.gz"
+
+# fullgene
+computeMatrix scale-regions \
+    -R $input_beds $@ \
+    -S $input_bw \
+    --unscaled5prime 150 \
+    --unscaled3prime 150 \
+    -b 500 -a 500 \
+    -bs 5 -p "max" --missingDataAsZero \
+    --skipZeros -o $out_file"_genebody_multi.gz"
